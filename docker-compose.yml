@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  spring-solr:
+    container_name: spring-solr
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+  solr_v8:
+    container_name: solr_v8
+    image: solr:8
