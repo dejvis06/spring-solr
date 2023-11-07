@@ -24,7 +24,7 @@ class SpringSolrApplicationTests {
         doc.addField("id", UUID.randomUUID().toString());
         doc.addField("name", "Amazon Kindle Paperwhite");
 
-        final UpdateResponse updateResponse = client.add("solr_core", doc);
+        client.add("solr_core", doc);
         // Indexed documents must be committed
         client.commit("solr_core");
     }
@@ -33,7 +33,7 @@ class SpringSolrApplicationTests {
     void indexByBean() throws SolrServerException, IOException {
         final SolrClient client = getSolrClient();
         final TechProduct kindle = new TechProduct("kindle-id-4", "Amazon Kindle Paperwhite");
-        final UpdateResponse response = client.addBean("solr_core", kindle);
+        client.addBean("solr_core", kindle);
 
         // Indexed documents must be committed
         client.commit("solr_core");
