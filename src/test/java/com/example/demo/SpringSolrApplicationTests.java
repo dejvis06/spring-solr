@@ -39,7 +39,7 @@ class SpringSolrApplicationTests {
         client.commit("solr_core");
     }
 
-    private Http2SolrClient getSolrClient() {
+    private SolrClient getSolrClient() {
         return new Http2SolrClient.Builder(SOLR_URL)
                 .build();
     }
