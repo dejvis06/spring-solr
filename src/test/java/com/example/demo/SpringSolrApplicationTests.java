@@ -15,7 +15,7 @@ import java.util.UUID;
 @SpringBootTest
 class SpringSolrApplicationTests {
 
-    final String solrUrl = "http://localhost:8983/solr";
+    static final String SOLR_URL = "http://localhost:8983/solr";
 
     @Test
     void indexBySolrInputDocument() throws SolrServerException, IOException {
@@ -40,7 +40,7 @@ class SpringSolrApplicationTests {
     }
 
     private Http2SolrClient getSolrClient() {
-        return new Http2SolrClient.Builder(solrUrl)
+        return new Http2SolrClient.Builder(SOLR_URL)
                 .build();
     }
 
