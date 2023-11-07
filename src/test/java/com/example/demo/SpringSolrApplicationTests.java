@@ -4,7 +4,6 @@ import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.beans.Field;
 import org.apache.solr.client.solrj.impl.Http2SolrClient;
-import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +12,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @SpringBootTest
-class SpringSolrApplicationTests {
+class SolrIndex {
 
     static final String SOLR_URL = "http://localhost:8983/solr";
 
@@ -25,6 +24,7 @@ class SpringSolrApplicationTests {
         doc.addField("name", "Amazon Kindle Paperwhite");
 
         client.add("solr_core", doc);
+
         // Indexed documents must be committed
         client.commit("solr_core");
     }
