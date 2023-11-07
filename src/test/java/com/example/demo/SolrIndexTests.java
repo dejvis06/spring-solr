@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @SpringBootTest
-class SolrIndex {
+class SolrIndexTests {
 
     static final String SOLR_URL = "http://localhost:8983/solr";
 
@@ -49,6 +49,12 @@ class SolrIndex {
         public String id;
         @Field
         public String name;
+        @Field
+        public String manu;
+        @Field
+        public String cat;
+        @Field
+        public Float price;
 
         public TechProduct(String id, String name) {
             this.id = id;
