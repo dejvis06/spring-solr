@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class Pagination extends SolrQueryDecorator {
 
-    Logger logger = LoggerFactory.getLogger(Pagination.class);
+    static final Logger logger = LoggerFactory.getLogger(Pagination.class);
 
     private Integer start, rows;
 

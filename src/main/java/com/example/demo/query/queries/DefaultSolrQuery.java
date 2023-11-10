@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public class DefaultSolrQuery implements SolrQueryBuilder {
 
-    Logger logger = LoggerFactory.getLogger(DefaultSolrQuery.class);
+    static final Logger logger = LoggerFactory.getLogger(DefaultSolrQuery.class);
 
     private static final String q = "*:*";
 

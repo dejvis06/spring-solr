@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class Sort extends SolrQueryDecorator {
 
-    Logger logger = LoggerFactory.getLogger(Sort.class);
+    static final Logger logger = LoggerFactory.getLogger(Sort.class);
 
     private final String item;
     private final ORDER order;
