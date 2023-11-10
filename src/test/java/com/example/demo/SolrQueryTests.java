@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.query.decorator.components.FieldList;
 import com.example.demo.query.decorator.components.Pagination;
 import com.example.demo.query.queries.DefaultSolrQuery;
 import com.example.demo.query.SolrQueryBuilder;
@@ -26,6 +27,7 @@ public class SolrQueryTests {
         SolrQueryBuilder solrQueryBuilder = new DefaultSolrQuery();
         solrQueryBuilder = new Sort(solrQueryBuilder, "id", SolrQuery.ORDER.desc);
         solrQueryBuilder = new Pagination(solrQueryBuilder, 0, 1);
+        solrQueryBuilder = new FieldList(solrQueryBuilder, "name");
 
         SolrQuery solrQuery = solrQueryBuilder.build();
 
