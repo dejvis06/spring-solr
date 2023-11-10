@@ -19,6 +19,7 @@ public class FieldList extends SolrQueryDecorator {
 
     @Override
     public SolrQuery build() {
+        logger.info("Adding fields: {}", fields);
         SolrQuery solrQuery = solrQueryBuilder.build();
         for (String field : fields) {
             solrQuery = solrQuery.addField(field);
