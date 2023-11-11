@@ -22,7 +22,7 @@ public class Facet extends SolrQueryDecorator {
         logger.info("Adding facet fields: {}", fields);
         SolrQuery solrQuery = solrQueryBuilder.build();
         for (String field : fields) {
-            solrQuery = solrQuery.addField(field);
+            solrQuery = solrQuery.addFacetField(field);
         }
         return solrQuery;
     }
