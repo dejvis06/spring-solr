@@ -11,6 +11,7 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.Http2SolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -27,7 +28,7 @@ public class SolrQueryTests {
 
         SolrQueryBuilder solrQueryBuilder = new DefaultSolrQuery();
         solrQueryBuilder = new Sort(solrQueryBuilder, "id", SolrQuery.ORDER.desc);
-        solrQueryBuilder = new Pagination(solrQueryBuilder, 0, 1);
+        solrQueryBuilder = new Pagination(solrQueryBuilder, 0, 10);
         solrQueryBuilder = new FieldList(solrQueryBuilder, "name");
 
         SolrQuery solrQuery = solrQueryBuilder.build();
