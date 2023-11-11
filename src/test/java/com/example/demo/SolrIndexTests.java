@@ -22,7 +22,7 @@ class SolrIndexTests {
         final SolrInputDocument doc = new SolrInputDocument();
         doc.addField("id", UUID.randomUUID().toString());
         doc.addField("name", "Amazon Kindle Paperwhite");
-
+        doc.addField("name_ss", "Amazon Kindle Paperwhite"); // index entire string
         client.add("solr_core", doc);
 
         // Indexed documents must be committed
@@ -32,7 +32,7 @@ class SolrIndexTests {
     @Test
     void indexByBean() throws SolrServerException, IOException {
         final SolrClient client = getSolrClient();
-        final TechProduct kindle = new TechProduct("kindle-id-4", "Amazon Kindle Paperwhite");
+        final TechProduct kindle = new TechProduct("kindle-id-4", "Amazon Kindle Paperwhite bean");
         client.addBean("solr_core", kindle);
 
         // Indexed documents must be committed
@@ -47,7 +47,7 @@ class SolrIndexTests {
     private static class TechProduct {
         @Field
         public String id;
-        @Field
+        @Field(value = "name_ss") // index entire string
         public String name;
         @Field
         public String manu;
