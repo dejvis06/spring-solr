@@ -40,12 +40,12 @@ public class SolrQueryTests {
     void facetTest() throws SolrServerException, IOException {
 
         SolrQueryBuilder solrQueryBuilder = new DefaultSolrQuery();
-        solrQueryBuilder = new Facet(solrQueryBuilder, "id");
+        solrQueryBuilder = new Facet(solrQueryBuilder, "name_ss");
 
         SolrQuery solrQuery = solrQueryBuilder.build();
 
         QueryResponse response = solrClient.query("solr_core", solrQuery);
-        response.getResults().forEach(result -> System.out.println(result.toString()));
+        response.getFacetFields().forEach(result -> System.out.println(result.toString()));
     }
 
     private static SolrClient getSolrClient() {
