@@ -9,10 +9,9 @@ import com.example.demo.query.queries.DefaultSolrQuery;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.Http2SolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
@@ -20,8 +19,8 @@ import java.io.IOException;
 @SpringBootTest
 public class SolrQueryTests {
 
-    static final SolrClient solrClient = getSolrClient();
-    static final String SOLR_URL = "http://localhost:8983/solr";
+    @Autowired
+    SolrClient solrClient;
 
     @Test
     void defaultQueryTest() throws SolrServerException, IOException {
@@ -47,10 +46,5 @@ public class SolrQueryTests {
 
         QueryResponse response = solrClient.query("solr_core", solrQuery);
         response.getFacetFields().forEach(result -> System.out.println(result.toString()));
-    }
-
-    private static SolrClient getSolrClient() {
-        return new Http2SolrClient.Builder(SOLR_URL)
-                .build();
     }
 }
