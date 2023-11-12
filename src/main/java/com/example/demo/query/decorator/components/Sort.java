@@ -26,14 +26,6 @@ public class Sort extends SolrQueryDecorator {
         return solrQueryBuilder.build().addSort(new SolrQuery.SortClause(item, order));
     }
 
-    public String getItem() {
-        return item;
-    }
-
-    public ORDER getOrder() {
-        return order;
-    }
-
     @Override
     public String toString() {
         return "Sort{" +

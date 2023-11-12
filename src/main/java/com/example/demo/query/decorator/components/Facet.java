@@ -11,7 +11,7 @@ public class Facet extends SolrQueryDecorator {
 
     static final Logger logger = LoggerFactory.getLogger(Facet.class);
 
-    private String[] fields;
+    private final String[] fields;
 
     public Facet(SolrQueryBuilder solrQueryBuilder, String... fields) {
         this.solrQueryBuilder = solrQueryBuilder;

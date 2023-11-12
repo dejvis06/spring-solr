@@ -10,7 +10,7 @@ public class FieldList extends SolrQueryDecorator {
 
     static final Logger logger = LoggerFactory.getLogger(FieldList.class);
 
-    private String[] fields;
+    private final String[] fields;
 
     public FieldList(SolrQueryBuilder solrQueryBuilder, String... fields) {
         this.solrQueryBuilder = solrQueryBuilder;

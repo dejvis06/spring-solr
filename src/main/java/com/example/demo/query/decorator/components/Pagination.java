@@ -10,7 +10,7 @@ public class Pagination extends SolrQueryDecorator {
 
     static final Logger logger = LoggerFactory.getLogger(Pagination.class);
 
-    private Integer start, rows;
+    private final Integer start, rows;
 
     public Pagination(SolrQueryBuilder solrQueryBuilder, Integer start, Integer rows) {
         this.solrQueryBuilder = solrQueryBuilder;
