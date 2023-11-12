@@ -6,7 +6,7 @@
 ### Connect to the Docker terminal (solr): 
 - docker exec -t -i solr_v9 /bin/bash
 
-### Run Solr scripts:
+#### Run Solr scripts:
 1. bin/solr create -c films -s 2 -rf 2  (creates core)
 2. bin/post -c films example/films/films.json (indexes the file)
 
@@ -21,5 +21,12 @@ This project uses:
 2. Apache Solr 9.4.0
 3. Java 17
 
-
+### TODO
+1. checkout dspace solr discovery configuration:
+   2. facets
+   3. suggestions
+   4. objects
+5. create an object mapper
+6. embedded solr server when testing
+7. operators
 
