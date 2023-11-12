@@ -4,7 +4,7 @@ public enum Operators {
     AND("AND"),
     OR("OR"),
     IS("{field}:{value}"),
-    NOT("-{field}:"),
+    NOT("-{field}:{value}"),
     IS_NULL("-{field}:[* TO *]"),
     IS_NOT_NULL("{field}:[* TO *]"),
     BETWEEN("{field}:[{from} TO {to}]"),
