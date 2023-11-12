@@ -1,4 +1,4 @@
-package com.example.demo.query.queries;
+package com.example.demo.query.static_;
 
 import com.example.demo.query.SolrQueryBuilder;
 import org.apache.solr.client.solrj.SolrQuery;
