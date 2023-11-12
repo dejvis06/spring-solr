@@ -24,9 +24,9 @@ public enum Operators {
     TRUE("{field}:true"),
     FALSE("{field}:false");
 
-    public final String label;
+    public final String value;
 
-    Operators(String label) {
-        this.label = label;
+    Operators(String value) {
+        this.value = value;
     }
 }
