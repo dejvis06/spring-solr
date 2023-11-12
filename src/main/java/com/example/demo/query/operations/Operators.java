@@ -1,4 +1,4 @@
-package com.example.demo.query;
+package com.example.demo.query.operations;
 
 public enum Operators {
     AND("AND"),
@@ -28,5 +28,12 @@ public enum Operators {
 
     Operators(String value) {
         this.value = value;
+    }
+
+    public static enum Replacements {
+        FIELD,
+        FIELD_VALUE,
+        FIELD_FROM_TO,
+
     }
 }
