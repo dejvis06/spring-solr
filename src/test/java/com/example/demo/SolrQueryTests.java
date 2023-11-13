@@ -1,7 +1,10 @@
 package com.example.demo;
 
 import com.example.demo.query.SolrQueryBuilder;
-import com.example.demo.query.decorator.components.*;
+import com.example.demo.query.decorator.components.Facet;
+import com.example.demo.query.decorator.components.FieldList;
+import com.example.demo.query.decorator.components.FilterQuery;
+import com.example.demo.query.decorator.components.PageRequest;
 import com.example.demo.query.operations.Operators;
 import com.example.demo.query.static_.DefaultSolrQuery;
 import org.apache.solr.client.solrj.SolrClient;
@@ -22,9 +25,11 @@ public class SolrQueryTests {
 
     @Test
     void defaultQueryTest() throws SolrServerException, IOException {
+
         SolrQueryBuilder solrQueryBuilder = new DefaultSolrQuery();
-        solrQueryBuilder = new Sort(solrQueryBuilder, "id", SolrQuery.ORDER.desc);
-        solrQueryBuilder = new Pagination(solrQueryBuilder, 0, 10);
+        solrQueryBuilder = new PageRequest(solrQueryBuilder)
+                .sort("id", SolrQuery.ORDER.desc)
+                .page(0, 10);
         solrQueryBuilder = new FieldList(solrQueryBuilder, "id", "name");
 
         String id_fq = new FilterQuery.FilterQueryBuilder()
@@ -32,14 +37,7 @@ public class SolrQueryTests {
                 .field("id")
                 .value("96474e52-37c4-4a1a-9734-fcc290620ef8")
                 .build();
-
-        String name_fq = new FilterQuery.FilterQueryBuilder()
-                .operator(Operators.IS)
-                .field("name")
-                .value("Amazon Kindle Paperwhite")
-                .build();
-
-        solrQueryBuilder = new FilterQuery(solrQueryBuilder, id_fq, name_fq);
+        solrQueryBuilder = new FilterQuery(solrQueryBuilder,  id_fq);
 
         SolrQuery solrQuery = solrQueryBuilder.build();
 
