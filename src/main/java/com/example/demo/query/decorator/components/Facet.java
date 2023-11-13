@@ -6,7 +6,7 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// This case can be expanded to handle all the cases of the Facets, for the moment only facet-fields
+// TODO: This case can be expanded to handle all the cases of the Facets, for the moment only facet-fields
 public class Facet extends SolrQueryDecorator {
 
     static final Logger logger = LoggerFactory.getLogger(Facet.class);
