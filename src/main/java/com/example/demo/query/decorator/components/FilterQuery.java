@@ -66,7 +66,7 @@ public class FilterQuery extends SolrQueryDecorator {
                 fq = fq.replace("{field}", field);
             }
             if (this.value != null) {
-                fq = fq.replace("{value}", value);
+                fq = fq.replace("{value}", "\"" + value + "\"");
             }
             if (this.from != null) {
                 fq = fq.replace("{from}", from);
