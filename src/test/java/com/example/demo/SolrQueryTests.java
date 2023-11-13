@@ -30,12 +30,12 @@ public class SolrQueryTests {
         solrQueryBuilder = new PageRequest(solrQueryBuilder)
                 .sort("id", SolrQuery.ORDER.desc)
                 .page(0, 10);
-        solrQueryBuilder = new FieldList(solrQueryBuilder, "id", "name");
+        solrQueryBuilder = new FieldList(solrQueryBuilder, "id", "name_ss");
 
         String id_fq = new FilterQuery.FilterQueryBuilder()
                 .operator(Operators.IS)
-                .field("id")
-                .value("96474e52-37c4-4a1a-9734-fcc290620ef8")
+                .field("name_ss")
+                .value("Amazon Kindle Paperwhite bean")
                 .build();
         solrQueryBuilder = new FilterQuery(solrQueryBuilder,  id_fq);
 
