@@ -2,11 +2,13 @@ package com.example.demo.models;
 
 import org.apache.solr.client.solrj.beans.Field;
 
+import java.util.UUID;
+
 public class TechProduct {
+    @Field //TODO: change to UUID;
+    public UUID id;
     @Field
-    public String id;
-    @Field
-    public String name;
+    protected String name;
     @Field
     public String manu;
     @Field
@@ -14,7 +16,7 @@ public class TechProduct {
     @Field
     public Float price;
 
-    public TechProduct(String id, String name) {
+    public TechProduct(UUID id, String name) {
         this.id = id;
         this.name = name;
     }

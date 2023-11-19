@@ -1,11 +1,11 @@
 package com.example.demo;
 
 import com.example.demo.query.SolrQueryBuilder;
-import com.example.demo.query.decorator.components.Facet;
-import com.example.demo.query.decorator.components.FieldList;
-import com.example.demo.query.decorator.components.FilterQuery;
-import com.example.demo.query.decorator.components.PageRequest;
-import com.example.demo.query.operations.Operators;
+import com.example.demo.query.decorators.components.Facet;
+import com.example.demo.query.decorators.components.FieldList;
+import com.example.demo.query.decorators.components.FilterQuery;
+import com.example.demo.query.decorators.components.PageRequest;
+import com.example.demo.query.Operators;
 import com.example.demo.query.static_.DefaultSolrQuery;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -37,7 +37,7 @@ public class SolrQueryTests {
                 .field("name_ss")
                 .value("Amazon Kindle Paperwhite bean")
                 .build();
-        solrQueryBuilder = new FilterQuery(solrQueryBuilder,  id_fq);
+        solrQueryBuilder = new FilterQuery(solrQueryBuilder, id_fq);
 
         SolrQuery solrQuery = solrQueryBuilder.build();
 
@@ -49,11 +49,13 @@ public class SolrQueryTests {
     void facetTest() throws SolrServerException, IOException {
 
         SolrQueryBuilder solrQueryBuilder = new DefaultSolrQuery();
-        solrQueryBuilder = new Facet(solrQueryBuilder, "name_ss");
+        solrQueryBuilder = new Facet(solrQueryBuilder)
+                .fields("name_ss");
 
         SolrQuery solrQuery = solrQueryBuilder.build();
 
         QueryResponse response = solrClient.query("solr_core", solrQuery);
         response.getFacetFields().forEach(result -> System.out.println(result.toString()));
     }
+
 }

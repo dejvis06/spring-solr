@@ -1,4 +1,4 @@
-package com.example.demo.query.decorator;
+package com.example.demo.query.decorators;
 
 import com.example.demo.query.SolrQueryBuilder;
 

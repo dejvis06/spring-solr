@@ -1,4 +1,4 @@
-package com.example.demo.query.operations;
+package com.example.demo.query;
 
 public enum Operators {
     AND("AND"),

@@ -1,8 +1,8 @@
-package com.example.demo.query.decorator.components;
+package com.example.demo.query.decorators.components;
 
 import com.example.demo.query.SolrQueryBuilder;
-import com.example.demo.query.decorator.SolrQueryDecorator;
-import com.example.demo.query.operations.Operators;
+import com.example.demo.query.decorators.SolrQueryDecorator;
+import com.example.demo.query.Operators;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

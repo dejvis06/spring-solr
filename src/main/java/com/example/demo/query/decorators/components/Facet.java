@@ -1,7 +1,7 @@
-package com.example.demo.query.decorator.components;
+package com.example.demo.query.decorators.components;
 
 import com.example.demo.query.SolrQueryBuilder;
-import com.example.demo.query.decorator.SolrQueryDecorator;
+import com.example.demo.query.decorators.SolrQueryDecorator;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +11,16 @@ public class Facet extends SolrQueryDecorator {
 
     static final Logger logger = LoggerFactory.getLogger(Facet.class);
 
-    private final String[] fields;
+    private String[] fields;
 
     public Facet(SolrQueryBuilder solrQueryBuilder, String... fields) {
         this.solrQueryBuilder = solrQueryBuilder;
         this.fields = fields;
+    }
+
+    public Facet fields(String... fields) {
+        this.fields = fields;
+        return this;
     }
 
     @Override
