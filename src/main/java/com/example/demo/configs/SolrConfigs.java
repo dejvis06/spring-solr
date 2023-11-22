@@ -23,6 +23,7 @@ import java.util.List;
 
 @Configuration
 public class SolrConfigs {
+    public static final String BASE_PACKAGE = "com.example.demo";
 
     /*@Bean
     TechProductRepository techProductRepository() {
@@ -34,7 +35,7 @@ public class SolrConfigs {
     @Bean
     ApplicationRunner solrRepositoriesScanner(ConfigurableListableBeanFactory beanFactory) {
         return (args) -> {
-            emptyIfNull(findSolrRepositories("com.example.demo")).forEach(solrRepository -> {
+            emptyIfNull(findSolrRepositories(BASE_PACKAGE)).forEach(solrRepository -> {
                 beanFactory.registerSingleton(solrRepository.getSimpleName(), generateProxy(solrRepository));
             });
         };
