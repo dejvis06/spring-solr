@@ -56,7 +56,7 @@ public class SolrConfigs {
         ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
         MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(resourcePatternResolver);
 
-        List<Class> candidates = new ArrayList<>();
+        List<Class> solrRepositories = new ArrayList<>();
         String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +
                 resolveBasePackage(basePackage) + "/" + "**/*.class";
         Resource[] resources = resourcePatternResolver.getResources(packageSearchPath);
@@ -64,11 +64,11 @@ public class SolrConfigs {
             if (resource.isReadable()) {
                 MetadataReader metadataReader = metadataReaderFactory.getMetadataReader(resource);
                 if (isSolrRepository(metadataReader)) {
-                    candidates.add(Class.forName(metadataReader.getClassMetadata().getClassName()));
+                    solrRepositories.add(Class.forName(metadataReader.getClassMetadata().getClassName()));
                 }
             }
         }
-        return candidates;
+        return solrRepositories;
     }
 
     private String resolveBasePackage(String basePackage) {
