@@ -35,11 +35,9 @@ public class SolrConfigs {
     @Bean
     ApplicationRunner solrRepositoriesScanner(ConfigurableListableBeanFactory beanFactory) {
         return (args) -> {
-            for (Class solrRepository : emptyIfNull(findSolrRepositories("com.example.demo"))) {
+            emptyIfNull(findSolrRepositories("com.example.demo")).forEach(solrRepository -> {
                 beanFactory.registerSingleton(solrRepository.getSimpleName(), generateProxy(solrRepository));
-            }
-            Map<String, Object> solrRepositories = beanFactory.getBeansWithAnnotation(SolrRepository.class);
-            // solrRepositories.forEach((name, solrRepository) -> beanFactory.registerSingleton(name, generateProxy(solrRepository)));
+            });
         };
     }
 
