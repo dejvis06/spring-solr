@@ -26,19 +26,19 @@ public class SolrConfigs {
     @Bean
     ApplicationRunner solrRepositoriesScanner(ConfigurableBeanFactory beanFactory) {
         return (args) -> {
-            findSolrRepositories(BASE_PACKAGE).forEach(solrRepository -> {
+            findSolrRepositories().forEach(solrRepository -> {
                 beanFactory.registerSingleton(solrRepository.getSimpleName(), generateProxy(solrRepository));
             });
         };
     }
 
-    private Object generateProxy(Class clazz) {
+    private Object generateProxy(Class<?> clazz) {
         return Proxy.newProxyInstance(getClass().getClassLoader(),
                 new Class[]{(clazz)},
                 new MyInvocationHandler(new SimpleSolrRepository<>()));
     }
 
-    private Set<Class<?>> findSolrRepositories(String basePackage) {
-        return new Reflections(basePackage).getTypesAnnotatedWith(SolrRepository.class);
+    private Set<Class<?>> findSolrRepositories() {
+        return new Reflections(BASE_PACKAGE).getTypesAnnotatedWith(SolrRepository.class);
     }
 }
