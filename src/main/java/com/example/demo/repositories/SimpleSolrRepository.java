@@ -2,7 +2,7 @@ package com.example.demo.repositories;
 
 import java.util.Optional;
 
-public class SimpleSolrRepository<T, ID> implements SolrRepository<T, ID> {
+public class SimpleSolrRepository<T, ID> implements ISolrRepository<T, ID> {
     @Override
     public <S extends T> S save(S entity) {
         return null;
