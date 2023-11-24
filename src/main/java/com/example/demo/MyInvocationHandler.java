@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 public class MyInvocationHandler implements InvocationHandler {
 
     private static final Logger log = LoggerFactory.getLogger(MyInvocationHandler.class);
-    private final static String instanceException = "object is not an instance of declaring class";
+    private final static String INSTANCE_EXCEPTION = "object is not an instance of declaring class";
 
     private Object target;
 
@@ -26,7 +26,7 @@ public class MyInvocationHandler implements InvocationHandler {
         try {
             return method.invoke(target, args);
         } catch (IllegalArgumentException e) {
-            if (e.getMessage().equals(instanceException)) {
+            if (e.getMessage().equals(INSTANCE_EXCEPTION)) {
                 log.info("Object instance error, proceeding with the custom query");
             } else {
                 throw e;
