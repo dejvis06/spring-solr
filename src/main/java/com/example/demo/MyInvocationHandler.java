@@ -1,10 +1,12 @@
 package com.example.demo;
 
+import com.sun.jdi.InvocationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class MyInvocationHandler implements InvocationHandler {
@@ -25,7 +27,8 @@ public class MyInvocationHandler implements InvocationHandler {
         Object result = null;
         try {
             return method.invoke(target, args);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalAccessException | IllegalArgumentException |
+                 InvocationTargetException e) {
             if (e.getMessage().equals(INSTANCE_EXCEPTION)) {
                 log.info("Object instance error, proceeding with the custom query");
             } else {
