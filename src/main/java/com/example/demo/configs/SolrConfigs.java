@@ -3,6 +3,7 @@ package com.example.demo.configs;
 import com.example.demo.MyInvocationHandler;
 import com.example.demo.configs.annotations.SolrRepository;
 import com.example.demo.repositories.SimpleSolrRepository;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +34,7 @@ public class SolrConfigs {
     }*/
 
     @Bean
-    ApplicationRunner solrRepositoriesScanner(ConfigurableListableBeanFactory beanFactory) {
+    ApplicationRunner solrRepositoriesScanner(ConfigurableBeanFactory beanFactory) {
         return (args) -> {
             emptyIfNull(findSolrRepositories(BASE_PACKAGE)).forEach(solrRepository -> {
                 beanFactory.registerSingleton(solrRepository.getSimpleName(), generateProxy(solrRepository));
