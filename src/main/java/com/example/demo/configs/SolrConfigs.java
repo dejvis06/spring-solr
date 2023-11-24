@@ -4,7 +4,6 @@ import com.example.demo.MyInvocationHandler;
 import com.example.demo.configs.annotations.SolrRepository;
 import com.example.demo.repositories.SimpleSolrRepository;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
