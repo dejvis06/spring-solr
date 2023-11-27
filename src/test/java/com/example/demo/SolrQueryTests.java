@@ -1,12 +1,8 @@
 package com.example.demo;
 
-import com.example.demo.query.SolrQueryBuilder;
-import com.example.demo.query.decorators.components.Facet;
-import com.example.demo.query.decorators.components.FieldList;
-import com.example.demo.query.decorators.components.FilterQuery;
-import com.example.demo.query.decorators.components.PageRequest;
 import com.example.demo.query.Operators;
-import com.example.demo.query.static_.DefaultSolrQuery;
+import com.example.demo.query.SolrQueryBuilder;
+import com.example.demo.query.decorators.components.*;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -26,7 +22,7 @@ public class SolrQueryTests {
     @Test
     void defaultQueryTest() throws SolrServerException, IOException {
 
-        SolrQueryBuilder solrQueryBuilder = new DefaultSolrQuery();
+        SolrQueryBuilder solrQueryBuilder = new QQuery("*:*");
         solrQueryBuilder = new PageRequest(solrQueryBuilder)
                 .sort("id", SolrQuery.ORDER.desc)
                 .page(0, 10);
@@ -48,7 +44,7 @@ public class SolrQueryTests {
     @Test
     void facetTest() throws SolrServerException, IOException {
 
-        SolrQueryBuilder solrQueryBuilder = new DefaultSolrQuery();
+        SolrQueryBuilder solrQueryBuilder = new QQuery("*:*");
         solrQueryBuilder = new Facet(solrQueryBuilder)
                 .fields("name_ss");
 
