@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 public @interface Query {
 
-    String q();
+    String q() default "*:*";
     Sort sort();
     Page page();
 }
