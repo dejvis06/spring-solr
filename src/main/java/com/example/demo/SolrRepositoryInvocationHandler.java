@@ -34,6 +34,7 @@ public class SolrRepositoryInvocationHandler implements InvocationHandler {
             if (e.getMessage().equals(INSTANCE_EXCEPTION)) {
                 log.info("Object instance error, proceeding with the custom query");
             } else {
+                log.error("Error invoking proxy: {}", e.getMessage());
                 throw e;
             }
         }
