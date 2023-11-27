@@ -1,6 +1,6 @@
 package com.example.demo.configs;
 
-import com.example.demo.MyInvocationHandler;
+import com.example.demo.SolrRepositoryInvocationHandler;
 import com.example.demo.configs.annotations.SolrRepository;
 import com.example.demo.repositories.SimpleSolrRepository;
 import org.reflections.Reflections;
@@ -35,7 +35,7 @@ public class SolrConfigs {
     private Object generateProxy(Class<?> clazz) {
         return Proxy.newProxyInstance(getClass().getClassLoader(),
                 new Class[]{(clazz)},
-                new MyInvocationHandler(new SimpleSolrRepository<>()));
+                new SolrRepositoryInvocationHandler(new SimpleSolrRepository<>()));
     }
 
     private Set<Class<?>> findSolrRepositories() {
