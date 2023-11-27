@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.example.demo.query.decorators.components.PageRequest;
 import com.example.demo.repositories.TechProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
