@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.query.decorators.components.PageRequest;
 import com.example.demo.repositories.TechProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,6 @@ public class ReflectionTests {
 
     @Test
     void test() {
-        techProductRepository.findAll();
+        techProductRepository.findAll(null);
     }
 }
