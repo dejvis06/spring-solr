@@ -1,6 +1,8 @@
 package com.example.demo.query.decorators.components;
 
 import com.example.demo.query.SolrQueryBuilder;
+import com.example.demo.query.annotations.Page;
+import com.example.demo.query.annotations.Sort;
 import com.example.demo.query.decorators.SolrQueryDecorator;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrQuery.ORDER;
@@ -16,8 +18,15 @@ public class PageRequest extends SolrQueryDecorator {
     private Integer start, rows;
     private final SolrQueryBuilder solrQueryBuilder;
 
-    public PageRequest(SolrQueryBuilder solrQueryBuilder){
+    public PageRequest(SolrQueryBuilder solrQueryBuilder) {
         this.solrQueryBuilder = solrQueryBuilder;
+    }
+
+    public PageRequest(SolrQueryBuilder solrQueryBuilder, Sort sort, Page page) {
+        this.solrQueryBuilder = solrQueryBuilder;
+        this.sort(sort.field(), sort.order());
+        this.start = page.start();
+        this.rows = page.rows();
     }
 
     public PageRequest sort(String field, ORDER order) {
