@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.repositories;
 
 import com.example.demo.query.SolrQueryBuilder;
 import com.example.demo.query.annotations.Query;

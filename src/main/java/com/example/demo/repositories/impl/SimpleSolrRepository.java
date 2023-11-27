@@ -1,4 +1,6 @@
-package com.example.demo.repositories;
+package com.example.demo.repositories.impl;
+
+import com.example.demo.repositories.ISolrRepository;
 
 import java.util.Optional;
 
