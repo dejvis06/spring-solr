@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import com.example.demo.query.Operators;
-import com.example.demo.query.QueryParser;
 import com.example.demo.query.QueryParser.SolrQueryException;
 import com.example.demo.query.SolrQueryBuilder;
 import com.example.demo.query.decorators.components.*;
@@ -47,7 +46,7 @@ public class SolrQueryTests {
     void facetTest() throws SolrServerException, IOException {
 
         SolrQueryBuilder solrQueryBuilder = new QQuery("*:*");
-        solrQueryBuilder = new Facet(solrQueryBuilder)
+        solrQueryBuilder = new FacetField(solrQueryBuilder)
                 .fields("name_ss");
 
         SolrQuery solrQuery = solrQueryBuilder.build();
