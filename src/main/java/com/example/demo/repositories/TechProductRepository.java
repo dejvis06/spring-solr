@@ -16,8 +16,8 @@ import java.util.UUID;
 public interface TechProductRepository extends ISolrRepository<TechProduct, UUID> {
 
     @Query(
+            fl = @FieldList(selected = {"name", "id"}),
             sort = @Sort(field = "id", order = SolrQuery.ORDER.desc),
-            page = @Page(rows = 5),
-            fl = @FieldList(selected = {"name_ss"}))
+            page = @Page(rows = 5))
     QueryResponse findAll(SolrQueryBuilder... solrQueryBuilder);
 }
