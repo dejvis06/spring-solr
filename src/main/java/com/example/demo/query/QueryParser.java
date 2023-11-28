@@ -14,7 +14,7 @@ public final class QueryParser {
         solrQueryBuilder = new PageRequest(solrQueryBuilder, query.sort(), query.page());
         solrQueryBuilder = new FieldList(solrQueryBuilder, query.fl().selected());
 
-        for (SolrQueryBuilder param : handleNullParams(params)) {
+        for (SolrQueryBuilder param : emptyIfNull(params)) {
             if (param != null) {
                 solrQueryBuilder = ((SolrQueryDecorator) param).setSolrQueryBuilder(solrQueryBuilder);
             }
@@ -22,7 +22,7 @@ public final class QueryParser {
         return solrQueryBuilder.build();
     }
 
-    private static SolrQueryBuilder[] handleNullParams(SolrQueryBuilder[] params) {
+    private static SolrQueryBuilder[] emptyIfNull(SolrQueryBuilder[] params) {
         if (params == null) {
             return new SolrQueryBuilder[]{};
         }
