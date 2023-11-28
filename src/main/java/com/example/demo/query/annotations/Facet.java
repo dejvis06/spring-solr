@@ -6,16 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Query {
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Facet {
 
-    String q() default "*:*";
-
-    Sort sort();
-
-    Page page() default @Page;
-
-    FieldList fl() default @FieldList;
-
-    Facet facet() default @Facet;
+    FacetField facetField() default @FacetField;
 }
