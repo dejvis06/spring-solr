@@ -7,15 +7,15 @@ import com.example.demo.query.annotations.Page;
 import com.example.demo.query.annotations.Query;
 import com.example.demo.query.annotations.Sort;
 import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.response.QueryResponse;
 
-import java.util.List;
 import java.util.UUID;
 
 @SolrRepository
 public interface TechProductRepository extends ISolrRepository<TechProduct, UUID> {
 
-    @Query(q = "techproduct",
-            sort = @Sort(field = "", order = SolrQuery.ORDER.desc),
-            page = @Page(start = 0, rows = 10))
-    List<TechProduct> findAll(SolrQueryBuilder solrQueryBuilder);
+    @Query(
+            sort = @Sort(field = "id", order = SolrQuery.ORDER.desc),
+            page = @Page(rows = 5))
+    QueryResponse findAll(SolrQueryBuilder... solrQueryBuilder);
 }
