@@ -2,6 +2,7 @@ package com.example.demo.query;
 
 import com.example.demo.query.annotations.Query;
 import com.example.demo.query.decorators.SolrQueryDecorator;
+import com.example.demo.query.decorators.components.FacetField;
 import com.example.demo.query.decorators.components.FieldList;
 import com.example.demo.query.decorators.components.PageRequest;
 import com.example.demo.query.decorators.components.QQuery;
@@ -13,6 +14,7 @@ public final class QueryParser {
         SolrQueryBuilder solrQueryBuilder = new QQuery(query.q());
         solrQueryBuilder = new PageRequest(solrQueryBuilder, query.sort(), query.page());
         solrQueryBuilder = new FieldList(solrQueryBuilder, query.fl().selected());
+        solrQueryBuilder = new FacetField(solrQueryBuilder, query.facet().facetField().selected());
 
         for (SolrQueryBuilder param : emptyIfNull(params)) {
             if (param != null) {
