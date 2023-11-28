@@ -6,14 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Query {
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface FieldList {
 
-    String q() default "*:*";
-
-    Sort sort();
-
-    Page page();
-
-    FieldList fl();
+    String[] selected();
 }
