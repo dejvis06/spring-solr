@@ -15,5 +15,5 @@ public @interface Query {
 
     Page page();
 
-    FieldList fl();
+    FieldList fl() default @FieldList;
 }
