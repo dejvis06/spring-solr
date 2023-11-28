@@ -1,6 +1,5 @@
 package com.example.demo.query.decorators.components;
 
-import com.example.demo.query.QueryParser;
 import com.example.demo.query.SolrQueryBuilder;
 import com.example.demo.query.decorators.SolrQueryDecorator;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -13,10 +12,8 @@ public class FieldList extends SolrQueryDecorator {
 
     private final String[] fields;
 
-    public FieldList(SolrQueryBuilder solrQueryBuilder, String... fields) throws QueryParser.SolrQueryException {
+    public FieldList(SolrQueryBuilder solrQueryBuilder, String... fields) {
         this.solrQueryBuilder = solrQueryBuilder;
-        if (fields.length == 0)
-            throw new QueryParser.SolrQueryException("Field list must not be empty");
         this.fields = fields;
     }
 
