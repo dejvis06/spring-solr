@@ -44,7 +44,7 @@ public class SolrConfigs {
     private Object generateProxy(Class<?> clazz) {
         return Proxy.newProxyInstance(getClass().getClassLoader(),
                 new Class[]{(clazz)},
-                new SolrRepositoryInvocationHandler(new SimpleSolrRepository<>()));
+                new SolrRepositoryInvocationHandler(new SimpleSolrRepository<>(), solrClient()));
     }
 
     private Set<Class<?>> findSolrRepositories() {
