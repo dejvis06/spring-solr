@@ -18,8 +18,6 @@ public interface TechProductRepository extends ISolrRepository<TechProduct, UUID
     @Query(
             sort = @Sort(field = "id", order = SolrQuery.ORDER.desc),
             page = @Page(rows = 5),
-            fl = @FieldList(selected = {"name_ss"})
-
-            )
+            fl = @FieldList(selected = {"name_ss"}))
     QueryResponse findAll(SolrQueryBuilder... solrQueryBuilder);
 }
