@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import com.example.demo.query.Operators;
+import com.example.demo.query.QueryParser;
+import com.example.demo.query.QueryParser.SolrQueryException;
 import com.example.demo.query.SolrQueryBuilder;
 import com.example.demo.query.decorators.components.*;
 import org.apache.solr.client.solrj.SolrClient;
@@ -20,7 +22,7 @@ public class SolrQueryTests {
     SolrClient solrClient;
 
     @Test
-    void defaultQueryTest() throws SolrServerException, IOException {
+    void defaultQueryTest() throws SolrServerException, IOException, SolrQueryException {
 
         SolrQueryBuilder solrQueryBuilder = new QQuery("*:*");
         solrQueryBuilder = new PageRequest(solrQueryBuilder)
