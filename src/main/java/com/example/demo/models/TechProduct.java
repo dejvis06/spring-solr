@@ -5,7 +5,7 @@ import org.apache.solr.client.solrj.beans.Field;
 import java.util.UUID;
 
 public class TechProduct {
-    @Field //TODO: change to UUID;
+    @Field
     public UUID id;
     @Field
     protected String name;
@@ -15,12 +15,4 @@ public class TechProduct {
     public String cat;
     @Field
     public Float price;
-
-    public TechProduct(UUID id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public TechProduct() {
-    }
 }
