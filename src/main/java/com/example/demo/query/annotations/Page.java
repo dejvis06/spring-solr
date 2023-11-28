@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.ANNOTATION_TYPE)
 public @interface Page {
 
-    int start();
-    int rows();
+    int start() default 0;
+    int rows() default 10;
 }

@@ -12,5 +12,5 @@ import java.lang.annotation.Target;
 public @interface Sort {
 
     String field();
-    SolrQuery.ORDER order();
+    SolrQuery.ORDER order() default SolrQuery.ORDER.desc;
 }
