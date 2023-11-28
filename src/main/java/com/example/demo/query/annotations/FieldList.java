@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.ANNOTATION_TYPE)
 public @interface FieldList {
 
-    String[] selected();
+    String[] selected() default {};
 }
