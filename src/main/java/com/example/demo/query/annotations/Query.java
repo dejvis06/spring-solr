@@ -13,7 +13,7 @@ public @interface Query {
 
     Sort sort();
 
-    Page page();
+    Page page() default @Page;
 
     FieldList fl() default @FieldList;
 }
