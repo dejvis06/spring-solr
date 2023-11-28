@@ -2,6 +2,7 @@ package com.example.demo.repositories;
 
 import com.example.demo.query.SolrQueryBuilder;
 import com.example.demo.query.annotations.Query;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,10 +19,12 @@ public class SolrRepositoryInvocationHandler implements InvocationHandler {
     private final static String INSTANCE_EXCEPTION = "object is not an instance of declaring class";
     public static final String NO_SOLR_QUERY_FOUND = "No Solr Query found";
 
-    private Object target;
+    private final Object target;
+    private final SolrClient solrClient;
 
-    public SolrRepositoryInvocationHandler(Object target) {
+    public SolrRepositoryInvocationHandler(Object target, SolrClient solrClient) {
         this.target = target;
+        this.solrClient = solrClient;
     }
 
     @Override
@@ -42,11 +45,16 @@ public class SolrRepositoryInvocationHandler implements InvocationHandler {
         if (query == null)
             throw new IllegalArgumentException(NO_SOLR_QUERY_FOUND);
 
-        // TODO: handle args
         log.info("Parsing query: {}", query);
-        SolrQuery solrQuery = parse(query, (SolrQueryBuilder) args[0]);
+        try {
+            SolrQuery solrQuery = parse(query, args.length > 0 ? (SolrQueryBuilder[]) args[0] : null);
+            // TODO add solr response converter
+            return solrClient.query("solr_core", solrQuery);
+        } catch (Exception e) {
+            log.error("Error parsing query: {}", e.getMessage());
+            //TODO return empty response
+            return null;
+        }
 
-        // TODO: handle solrQuery execution
-        return result;
     }
 }
