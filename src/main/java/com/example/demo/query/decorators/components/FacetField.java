@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 public class FacetField extends SolrQueryDecorator {
 
     static final Logger logger = LoggerFactory.getLogger(FacetField.class);
+    public static final String PREFIX = "_ss";
 
     private String[] fields;
 
@@ -30,7 +31,7 @@ public class FacetField extends SolrQueryDecorator {
         logger.info("Adding facet fields: {}", fields);
         SolrQuery solrQuery = solrQueryBuilder.build();
         for (String field : fields) {
-            solrQuery = solrQuery.addFacetField(field);
+            solrQuery = solrQuery.addFacetField(field.concat(PREFIX));
         }
         return solrQuery;
     }
