@@ -17,6 +17,10 @@ public class FieldList extends SolrQueryDecorator {
         this.fields = fields;
     }
 
+    public FieldList(String... fields) {
+        this.fields = fields;
+    }
+
     @Override
     public SolrQuery build() {
         logger.info("Adding fields: {}", fields);

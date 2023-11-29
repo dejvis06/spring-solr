@@ -18,7 +18,9 @@ public class PageRequest extends SolrQueryDecorator {
     private String field;
     private ORDER order;
     private Integer start, rows;
-    private final SolrQueryBuilder solrQueryBuilder;
+
+    public PageRequest() {
+    }
 
     public PageRequest(SolrQueryBuilder solrQueryBuilder) {
         this.solrQueryBuilder = solrQueryBuilder;
