@@ -17,7 +17,8 @@ public final class QueryParser {
                         .sort(query.sort().field(), query.sort().order())
                         .page(query.page().start(), query.page().rows()))
                 .add(new FieldList(query.fl().selected()))
-                .add(new FacetField().fields(query.facet().facetField().selected()))
+                .add(new FacetField()
+                        .fields(query.facet().facetField().selected()))
                 .get();
 
         for (SolrQueryBuilder param : emptyIfNull(params)) {
