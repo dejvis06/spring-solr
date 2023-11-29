@@ -1,15 +1,15 @@
 package com.example.demo.repositories;
 
+import com.example.demo.models.SolrResponseRest;
 import com.example.demo.query.SolrQueryBuilder;
 import com.example.demo.query.annotations.Query;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.response.QueryResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 
 import static com.example.demo.query.QueryParser.parse;
 
@@ -48,13 +48,21 @@ public class SolrRepositoryInvocationHandler implements InvocationHandler {
         log.info("Parsing query: {}", query);
         try {
             SolrQuery solrQuery = parse(query, args.length > 0 ? (SolrQueryBuilder[]) args[0] : null);
-            // TODO add solr response converter
-            return solrClient.query("solr_core", solrQuery);
-        } catch (Exception e) {
-            log.error("Error parsing query: {}", e.getMessage());
-            //TODO return empty response
-            return null;
-        }
 
+            QueryResponse solrResponse = solrClient.query("solr_core", solrQuery);
+
+            return SolrResponseRest.instantiate(getParameterizedType(method))
+                    .facets(solrResponse.getFacetFields())
+                    .results(solrResponse.getResults());
+        } catch (Exception e) {
+            log.error("Error invoking query: {}", e.getMessage());
+            return new SolrResponseRest<>();
+        }
+    }
+
+    private static Class<?> getParameterizedType(Method method) throws ClassNotFoundException {
+        ParameterizedType type = (ParameterizedType) method.getGenericReturnType();
+        Type[] actualTypeArguments = type.getActualTypeArguments();
+        return Class.forName(actualTypeArguments[0].getTypeName());
     }
 }
