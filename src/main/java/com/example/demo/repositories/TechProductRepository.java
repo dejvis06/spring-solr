@@ -17,7 +17,7 @@ public interface TechProductRepository extends ISolrRepository<TechProduct, UUID
             sort = @Sort(field = "id", order = SolrQuery.ORDER.desc),
             page = @Page(rows = 5),
             facet = @Facet(
-                    facetField = @FacetField(selected = "name_ss")
+                    facetField = @FacetField(selected = "name")
             )
     )
     QueryResponse findAll(SolrQueryBuilder... solrQueryBuilder);
