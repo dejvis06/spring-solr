@@ -1,7 +1,19 @@
 package com.example.demo.repositories;
 
-import org.springframework.data.repository.CrudRepository;
+import com.example.demo.models.SolrResponseRest;
+import com.example.demo.query.SolrQueryBuilder;
+import org.apache.solr.client.solrj.SolrServerException;
 
-public interface ISolrRepository<T, ID> extends CrudRepository<T, ID> {
+import java.io.IOException;
+import java.util.Optional;
 
+public interface ISolrRepository<T, ID> {
+
+    <S extends T> S save(S entity);
+
+    Optional<T> findById(ID id) throws SolrServerException, IOException;
+
+    void deleteById(ID id) throws SolrServerException, IOException;
+
+    SolrResponseRest<T> findAll(SolrQueryBuilder... solrQueryBuilder);
 }
