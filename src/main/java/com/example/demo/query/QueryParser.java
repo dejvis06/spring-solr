@@ -1,7 +1,6 @@
 package com.example.demo.query;
 
 import com.example.demo.query.annotations.Query;
-import com.example.demo.query.decorators.BasicDecorations;
 import com.example.demo.query.decorators.SolrQueryDecorator;
 import com.example.demo.query.decorators.components.FacetField;
 import com.example.demo.query.decorators.components.FieldList;
@@ -11,8 +10,8 @@ import org.apache.solr.client.solrj.SolrQuery;
 
 public final class QueryParser {
 
-    public static SolrQuery parse(Query query, SolrQueryBuilder[] params) throws SolrQueryException {
-        SolrQueryBuilder solrQueryBuilder = new BasicDecorations(new QQuery(query.q()))
+    public static SolrQuery parse(Query query, SolrQueryBuilder... params) throws SolrQueryException {
+        SolrQueryBuilder solrQueryBuilder = new SearchConfigs(new QQuery(query.q()))
                 .add(new PageRequest()
                         .sort(query.sort().field(), query.sort().order())
                         .page(query.page().start(), query.page().rows()))
@@ -29,7 +28,7 @@ public final class QueryParser {
         return solrQueryBuilder.build();
     }
 
-    private static SolrQueryBuilder[] emptyIfNull(SolrQueryBuilder[] params) {
+    private static SolrQueryBuilder[] emptyIfNull(SolrQueryBuilder... params) {
         if (params == null) {
             return new SolrQueryBuilder[]{};
         }
@@ -39,6 +38,24 @@ public final class QueryParser {
     public static class SolrQueryException extends Exception {
         public SolrQueryException(String message) {
             super(message);
+        }
+    }
+
+    private static class SearchConfigs {
+
+        private SolrQueryBuilder solrQueryBuilder;
+
+        SearchConfigs(QQuery query) {
+            solrQueryBuilder = query;
+        }
+
+        public SolrQueryBuilder get() {
+            return solrQueryBuilder;
+        }
+
+        private SearchConfigs add(SolrQueryDecorator decorator) {
+            solrQueryBuilder = decorator.setSolrQueryBuilder(solrQueryBuilder);
+            return this;
         }
     }
 }
