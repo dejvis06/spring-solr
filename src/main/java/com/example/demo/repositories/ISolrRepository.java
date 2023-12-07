@@ -15,5 +15,5 @@ public interface ISolrRepository<T, ID> {
 
     void deleteById(ID id) throws SolrServerException, IOException;
 
-    SolrResponseRest<T> findAll(SolrQueryBuilder... solrQueryBuilder);
+    SolrResponseRest<T> findAll(SolrQueryBuilder... solrQueryBuilder) throws SolrServerException, IOException;
 }
