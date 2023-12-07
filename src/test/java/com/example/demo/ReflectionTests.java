@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import com.example.demo.models.SolrResponseRest;
+import com.example.demo.models.TechProduct;
 import com.example.demo.repositories.TechProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,6 @@ public class ReflectionTests {
 
     @Test
     void test() {
-        techProductRepository.findAll(null);
+        SolrResponseRest<TechProduct> response = techProductRepository.findAll(null);
     }
 }
