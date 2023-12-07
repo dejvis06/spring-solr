@@ -3,9 +3,11 @@ package com.example.demo.repositories.impl;
 import com.example.demo.models.SolrResponseRest;
 import com.example.demo.models.TechProduct;
 import com.example.demo.query.SolrQueryBuilder;
+import com.example.demo.query.decorators.components.QQuery;
 import com.example.demo.repositories.ISolrRepository;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 
 import java.io.IOException;
@@ -20,6 +22,7 @@ public class SimpleSolrRepository<T, ID> implements ISolrRepository<T, ID> {
     public SimpleSolrRepository(SolrClient solrClient) {
         this.solrClient = solrClient;
     }
+
 
     @Override
     public <S extends T> S save(S entity) {
@@ -45,8 +48,22 @@ public class SimpleSolrRepository<T, ID> implements ISolrRepository<T, ID> {
     }
 
     @Override
-    public SolrResponseRest<T> findAll(SolrQueryBuilder... solrQueryBuilder) {
-        return null;
+    public SolrResponseRest<T> findAll(SolrQueryBuilder... params) throws SolrServerException, IOException {
+        SolrQueryBuilder solrQueryBuilder = new QQuery("*:*");
+        for (SolrQueryBuilder param : emptyIfNull(params)) {
+            solrQueryBuilder = param;
+        }
+        QueryResponse solrResponse = solrClient.query("solr_core", solrQueryBuilder.build());
+        return (SolrResponseRest<T>) SolrResponseRest.instantiate(this.getClass())
+                .facets(solrResponse.getFacetFields())
+                .results(solrResponse.getResults());
+    }
+
+    private static SolrQueryBuilder[] emptyIfNull(SolrQueryBuilder... params) {
+        if (params == null) {
+            return new SolrQueryBuilder[]{};
+        }
+        return params;
     }
 
     public static SimpleSolrRepository instantiate(Type parameterizedType, SolrClient solrClient) {
