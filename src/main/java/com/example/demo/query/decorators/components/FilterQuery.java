@@ -61,20 +61,19 @@ public class FilterQuery extends SolrQueryDecorator {
         }
 
         public String build() {
-            String fq = operator;
-            if (this.field != null) {
-                fq = fq.replace("{field}", field);
+            if (field != null) {
+                operator = operator.replace("{field}", field);
             }
-            if (this.value != null) {
-                fq = fq.replace("{value}", "\"" + value + "\"");
+            if (value != null) {
+                operator = operator.replace("{value}", "\"" + value + "\"");
             }
-            if (this.from != null) {
-                fq = fq.replace("{from}", from);
+            if (from != null) {
+                operator = operator.replace("{from}", from);
             }
-            if (this.to != null) {
-                fq = fq.replace("{to}", to);
+            if (to != null) {
+                operator = operator.replace("{to}", to);
             }
-            return fq;
+            return operator;
         }
     }
 }
