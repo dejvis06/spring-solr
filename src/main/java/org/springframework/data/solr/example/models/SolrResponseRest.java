@@ -1,4 +1,4 @@
-package org.springframework.data.solr.models;
+package org.springframework.data.solr.example.models;
 
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.common.SolrDocumentList;
@@ -12,7 +12,16 @@ public class SolrResponseRest<T> {
     private Facets facets;
     private Results<T> objects;
 
-    public static SolrResponseRest<?> instantiate(Class<?> parameterizedType) {
+    private String error;
+
+    public SolrResponseRest() {
+    }
+
+    public SolrResponseRest(String error) {
+        this.error = error;
+    }
+
+    public static SolrResponseRest<?> instantiateByParameterizedType(Class<?> parameterizedType) {
         if (parameterizedType.equals(TechProduct.class)) {
             return new SolrResponseRest<TechProduct>();
         } else {

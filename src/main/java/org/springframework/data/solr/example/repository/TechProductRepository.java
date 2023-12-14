@@ -1,12 +1,13 @@
-package org.springframework.data.solr.repositories;
+package org.springframework.data.solr.example.repository;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.data.solr.configs.annotations.SolrRepository;
-import org.springframework.data.solr.models.SolrResponseRest;
-import org.springframework.data.solr.models.TechProduct;
+import org.springframework.data.solr.example.models.SolrResponseRest;
+import org.springframework.data.solr.example.models.TechProduct;
 import org.springframework.data.solr.query.SolrQueryBuilder;
 import org.springframework.data.solr.query.annotations.*;
+import org.springframework.data.solr.repository.ISolrRepository;
 
 import java.io.IOException;
 import java.util.UUID;

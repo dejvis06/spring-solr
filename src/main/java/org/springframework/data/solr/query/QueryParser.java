@@ -1,17 +1,41 @@
 package org.springframework.data.solr.query;
 
+import org.apache.solr.client.solrj.SolrQuery;
 import org.springframework.data.solr.query.annotations.Query;
 import org.springframework.data.solr.query.decorators.SolrQueryDecorator;
 import org.springframework.data.solr.query.decorators.components.FacetField;
 import org.springframework.data.solr.query.decorators.components.FieldList;
 import org.springframework.data.solr.query.decorators.components.PageRequest;
 import org.springframework.data.solr.query.decorators.components.QQuery;
-import org.apache.solr.client.solrj.SolrQuery;
 
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Utility class for parsing Spring Data Solr Query annotations into SolrQuery objects.
+ */
 public final class QueryParser {
 
+    // Use a cache to store SolrQueryBuilder instances
+    private static final Map<String, SolrQueryBuilder> queryBuilderCache = new HashMap<>();
+
+    /**
+     * Parses a Spring Data Solr Query annotation into a SolrQuery object.
+     *
+     * @param query   The Query annotation to parse.
+     * @param params  Additional SolrQueryBuilder parameters to apply.
+     * @return        The SolrQuery object representing the parsed query.
+     * @throws SolrQueryException If an error occurs during the parsing process.
+     */
     public static SolrQuery parse(Query query, SolrQueryBuilder... params) throws SolrQueryException {
-        SolrQueryBuilder solrQueryBuilder = new SearchConfigs(new QQuery(query.q()))
+
+        String queryKey = query.toString();
+        SolrQueryBuilder cachedQueryBuilder = queryBuilderCache.get(queryKey);
+        if (cachedQueryBuilder != null) {
+            return cachedQueryBuilder.build();
+        }
+
+        SolrQueryBuilder solrQueryBuilder = new QueryBuilderConfigurator(new QQuery(query.q()))
                 .add(new PageRequest()
                         .sort(query.sort().field(), query.sort().order())
                         .page(query.page().start(), query.page().rows()))
@@ -25,14 +49,15 @@ public final class QueryParser {
                 solrQueryBuilder = ((SolrQueryDecorator) param).setSolrQueryBuilder(solrQueryBuilder);
             }
         }
+
+        // Cache the SolrQueryBuilder instance
+        queryBuilderCache.put(queryKey, solrQueryBuilder);
+
         return solrQueryBuilder.build();
     }
 
     private static SolrQueryBuilder[] emptyIfNull(SolrQueryBuilder... params) {
-        if (params == null) {
-            return new SolrQueryBuilder[]{};
-        }
-        return params;
+        return (params != null) ? params : new SolrQueryBuilder[]{};
     }
 
     public static class SolrQueryException extends Exception {
@@ -41,19 +66,22 @@ public final class QueryParser {
         }
     }
 
-    private static class SearchConfigs {
+    /**
+     * Helper class for configuring and building SolrQueryBuilder instances.
+     */
+    private static class QueryBuilderConfigurator {
 
         private SolrQueryBuilder solrQueryBuilder;
 
-        SearchConfigs(QQuery query) {
-            solrQueryBuilder = query;
+        QueryBuilderConfigurator(SolrQueryBuilder queryBuilder) {
+            this.solrQueryBuilder = queryBuilder;
         }
 
         public SolrQueryBuilder get() {
             return solrQueryBuilder;
         }
 
-        private SearchConfigs add(SolrQueryDecorator decorator) {
+        private QueryBuilderConfigurator add(SolrQueryDecorator decorator) {
             solrQueryBuilder = decorator.setSolrQueryBuilder(solrQueryBuilder);
             return this;
         }

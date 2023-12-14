@@ -1,4 +1,4 @@
-package org.springframework.data.solr.models;
+package org.springframework.data.solr.example.models;
 
 import org.apache.solr.client.solrj.beans.Field;
 
@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class TechProduct {
     @Field
-    public UUID id;
+    public String id;
     @Field
     protected String name;
     @Field
@@ -15,4 +15,9 @@ public class TechProduct {
     public String cat;
     @Field
     public Float price;
+
+    public TechProduct(UUID id, String name) {
+        this.id = id.toString();
+        this.name = name;
+    }
 }

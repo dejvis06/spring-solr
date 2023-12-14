@@ -1,14 +1,14 @@
 package org.springframework.data.solr.query.decorators.components;
 
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrQuery.ORDER;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.solr.query.QueryParser;
 import org.springframework.data.solr.query.SolrQueryBuilder;
 import org.springframework.data.solr.query.annotations.Page;
 import org.springframework.data.solr.query.annotations.Sort;
 import org.springframework.data.solr.query.decorators.SolrQueryDecorator;
-import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrQuery.ORDER;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class PageRequest extends SolrQueryDecorator {
 

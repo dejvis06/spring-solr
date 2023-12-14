@@ -6,9 +6,10 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.solr.query.Operators;
-import org.springframework.data.solr.query.QueryParser.SolrQueryException;
+import org.springframework.data.solr.query.QueryParser;
 import org.springframework.data.solr.query.SolrQueryBuilder;
 import org.springframework.data.solr.query.decorators.components.*;
 
@@ -19,9 +20,11 @@ public class SolrQueryTests {
 
     @Autowired
     SolrClient solrClient;
+    @Value("${solr.core}")
+    private String solrCore;
 
     @Test
-    void defaultQueryTest() throws SolrServerException, IOException, SolrQueryException {
+    void defaultQueryTest() throws SolrServerException, IOException, QueryParser.SolrQueryException {
 
         SolrQueryBuilder solrQueryBuilder = new QQuery("*:*");
         solrQueryBuilder = new PageRequest(solrQueryBuilder)
@@ -38,7 +41,7 @@ public class SolrQueryTests {
 
         SolrQuery solrQuery = solrQueryBuilder.build();
 
-        QueryResponse response = solrClient.query("solr_core", solrQuery);
+        QueryResponse response = solrClient.query(solrCore, solrQuery);
         response.getResults().forEach(result -> System.out.println(result.toString()));
     }
 
@@ -51,7 +54,7 @@ public class SolrQueryTests {
 
         SolrQuery solrQuery = solrQueryBuilder.build();
 
-        QueryResponse response = solrClient.query("solr_core", solrQuery);
+        QueryResponse response = solrClient.query(solrCore, solrQuery);
         response.getFacetFields().forEach(result -> System.out.println(result.toString()));
     }
 

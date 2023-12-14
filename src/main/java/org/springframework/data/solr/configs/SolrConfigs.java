@@ -1,15 +1,16 @@
 package org.springframework.data.solr.configs;
 
-import org.springframework.data.solr.configs.annotations.SolrRepository;
-import org.springframework.data.solr.repositories.SolrRepositoryInvocationHandler;
-import org.springframework.data.solr.repositories.impl.SimpleSolrRepository;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.impl.Http2SolrClient;
 import org.reflections.Reflections;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.solr.configs.annotations.SolrRepository;
+import org.springframework.data.solr.repository.SolrRepositoryInvocationHandler;
+import org.springframework.data.solr.repository.SimpleSolrRepository;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
@@ -18,19 +19,17 @@ import java.util.Set;
 
 @Configuration
 class SolrConfigs {
-    public static final String BASE_PACKAGE = "org.springframework.data.solr.repositories";
-    static final String SOLR_URL = "http://localhost:8983/solr";
 
-    /*@Bean
-    TechProductRepository techProductRepository() {
-        return (TechProductRepository) Proxy.newProxyInstance(getClass().getClassLoader(),
-                new Class[]{TechProductRepository.class},
-                new MyInvocationHandler(new SimpleSolrRepository<>()));
-    }*/
+    @Value("${solr.url}")
+    private String solrUrl;
+    @Value("${solr.core}")
+    private String solrCore;
+    @Value("${solr.base.package}")
+    private String solrBasePackage;
 
     @Bean
     SolrClient solrClient() {
-        return new Http2SolrClient.Builder(SOLR_URL)
+        return new Http2SolrClient.Builder(solrUrl)
                 .build();
     }
 
@@ -44,13 +43,17 @@ class SolrConfigs {
     }
 
     private Object generateProxy(Class<?> clazz) {
-        return Proxy.newProxyInstance(getClass().getClassLoader(),
+        return Proxy.newProxyInstance(clazz.getClassLoader(),
                 new Class[]{(clazz)},
-                new SolrRepositoryInvocationHandler(SimpleSolrRepository.instantiate(getParameterizedType(clazz), solrClient()), solrClient()));
+                new SolrRepositoryInvocationHandler(parameterizedSolrRepository(clazz), solrClient(), solrCore));
+    }
+
+    private SimpleSolrRepository parameterizedSolrRepository(Class<?> clazz) {
+        return SimpleSolrRepository.instantiateByParameterizedType(getParameterizedType(clazz), solrClient(), solrCore);
     }
 
     private Set<Class<?>> findSolrRepositories() {
-        return new Reflections(BASE_PACKAGE).getTypesAnnotatedWith(SolrRepository.class);
+        return new Reflections(solrBasePackage).getTypesAnnotatedWith(SolrRepository.class);
     }
 
 

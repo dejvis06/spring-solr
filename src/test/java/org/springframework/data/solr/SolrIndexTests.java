@@ -7,6 +7,7 @@ import org.apache.solr.client.solrj.impl.Http2SolrClient;
 import org.apache.solr.common.SolrInputDocument;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
@@ -17,6 +18,8 @@ class SolrIndexTests {
 
     @Autowired
     SolrClient solrClient;
+    @Value("${solr.core}")
+    private String solrCore;
 
     @Test
     void indexBySolrInputDocument() throws SolrServerException, IOException {
@@ -24,19 +27,18 @@ class SolrIndexTests {
         doc.addField("id", UUID.randomUUID().toString());
         doc.addField("name", "Amazon Kindle Paperwhite");
         doc.addField("name_ss", "Amazon Kindle Paperwhite"); // index entire string
-        solrClient.add("solr_core", doc);
+        solrClient.add(solrCore, doc);
 
         // Indexed documents must be committed
-        solrClient.commit("solr_core");
+        solrClient.commit(solrCore);
     }
 
     @Test
     void indexByBean() throws SolrServerException, IOException {
-        final TechProduct kindle = new TechProduct("kindle-id-4", "Amazon Kindle Paperwhite bean");
-        solrClient.addBean("solr_core", kindle);
-
+        final TechProduct kindle = new TechProduct("kindle-id-19", "Amazon Kindle Paperwhite bean ii");
+        solrClient.addBean(solrCore, kindle);
         // Indexed documents must be committed
-        solrClient.commit("solr_core");
+        solrClient.commit(solrCore);
     }
 
     private static class TechProduct {
