@@ -60,7 +60,7 @@ public class SolrRepositoryInvocationHandler implements InvocationHandler {
      */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-
+        log.info("Query invoked: {}, for Repository: {}", method.getName(), method.getDeclaringClass().getSimpleName());
         if (isInstance(method.getDeclaringClass(), target.getClass())) {
             log.info("Proceeding with default behaviour");
             return method.invoke(target, args);
