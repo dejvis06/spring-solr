@@ -85,7 +85,7 @@ class SolrConfigs {
                 new SolrRepositoryInvocationHandler(parameterizedSolrRepository(clazz), solrClient(), solrCore));
     }
 
-    private SimpleSolrRepository parameterizedSolrRepository(Class<?> clazz) {
+    private SimpleSolrRepository<?, ?> parameterizedSolrRepository(Class<?> clazz) {
         logger.debug("Instantiating SimpleSolrRepository by parameterized type for class: {}", clazz.getSimpleName());
         return SimpleSolrRepository.instantiateByParameterizedType(getParameterizedType(clazz), solrClient(), solrCore);
     }
