@@ -1,5 +1,9 @@
 # Spring Boot + Apache Solr 9.4.0
 
+## Description
+
+It's a demo project for creating an annotation based solution for building solrj queries.
+
 ###  Build and Run:
 - bash build-and-run.sh
 
@@ -9,10 +13,6 @@
 #### Run Solr scripts:
 1. bin/solr create -c films -s 2 -rf 2  (creates core)
 2. bin/post -c films example/films/films.json (indexes the file)
-
-## Description
-
-It's a demo project build for learning about solrj.
 
 ### Versions
 
