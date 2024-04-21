@@ -2,7 +2,18 @@
 
 ## Description
 
-It's a demo project for creating an annotation based solution for building solrj queries.
+It's a demo project for creating an annotation based solution for building solrj queries. Usage example:
+
+    @Query(
+            fl = @FieldList(selected = {"name", "id"}),
+            sort = @Sort(field = "id", order = SolrQuery.ORDER.desc),
+            page = @Page(rows = 5),
+            facet = @Facet(
+                    facetField = @FacetField(selected = "name")
+            )
+    )
+    SolrResponseRest<TechProduct> findAll(SolrQueryBuilder... solrQueryBuilder) throws SolrServerException, IOException;
+
 
 ###  Build and Run:
 - bash build-and-run.sh
@@ -21,7 +32,7 @@ This project uses:
 2. Apache Solr 9.4.0
 3. Java 17
 
-## Spring Solr Configuration
+## SolrConfigs.java
 This Spring-based configuration class facilitates the integration of Spring Solr with Apache Solr. It manages the initialization of the SolrClient, scans for Solr repositories annotated with @SolrRepository, and dynamically creates proxies for these repositories.
 
 Features
@@ -29,26 +40,13 @@ Features
 2. Repository Scanning and Registration: Utilizes Spring's ApplicationRunner to scan for Solr repositories during the application's runtime. It dynamically registers these repositories as singletons in the Spring application context.
 3. Dynamic Proxies: Uses reflection to discover classes annotated with @SolrRepository and creates dynamic proxies to handle repository invocations.
 
-## SolrRepositoryInvocationHandler
+## SolrRepositoryInvocationHandler.java
 The SolrRepositoryInvocationHandler is a dynamic proxy invocation handler responsible for handling method invocations on Solr repository proxies. It allows for custom query processing, providing flexibility in interacting with Solr repositories.
 
 Features
-Custom Query Processing: Enables custom query processing using the @Query annotation. <br/>
-Solr Query Execution: Executes Solr queries based on the provided query metadata. <br/>
-Result Handling: Returns the result as a structured SolrResponseRest object. <br/>
-Usage
-
-Annotation: Annotate your repository methods with @Query to enable custom query processing.
-
-    @Query(
-            fl = @FieldList(selected = {"name", "id"}),
-            sort = @Sort(field = "id", order = SolrQuery.ORDER.desc),
-            page = @Page(rows = 5),
-            facet = @Facet(
-                    facetField = @FacetField(selected = "name")
-            )
-    )
-    SolrResponseRest<TechProduct> findAll(SolrQueryBuilder... solrQueryBuilder) throws SolrServerException, IOException;
+1. Custom Query Processing: Enables custom query processing using the @Query annotation. <br/>
+2. Solr Query Execution: Executes Solr queries based on the provided query metadata. <br/>
+3. Result Handling: Returns the result as a structured SolrResponseRest object. <br/>
 
 
 
